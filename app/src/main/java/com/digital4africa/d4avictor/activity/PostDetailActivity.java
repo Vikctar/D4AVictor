@@ -5,6 +5,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,9 +23,15 @@ public class PostDetailActivity extends AppCompatActivity {
     @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
 
     @BindView(R.id.post_content)
     TextView postContent;
+
+    @BindView(R.id.post_excerpt)
+    TextView postExcerpt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +39,19 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         Intent intent = getIntent();
 
         String title = intent.getStringExtra("title");
         String postAuthor = intent.getStringExtra("author");
         String content = intent.getStringExtra("content");
+        String excerpt = intent.getStringExtra("excerpt");
+
+        postExcerpt.setText(excerpt);
+        postContent.setText(content);
 
         try {
             Glide.with(this).load(getIntent().getStringExtra("thumbnail"))
@@ -69,7 +83,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getIntent().getStringExtra("title"));
+                    collapsingToolbar.setTitle("Post");
                     isShow = true;
                 } else if (isShow) {
                     collapsingToolbar.setTitle(" ");

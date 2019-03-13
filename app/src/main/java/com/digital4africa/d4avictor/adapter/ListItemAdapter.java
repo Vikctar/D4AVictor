@@ -51,6 +51,7 @@ public class ListItemAdapter extends RecyclerView.Adapter<ListItemAdapter.ListVi
                 Intent intent = new Intent(context, PostDetailActivity.class);
                 intent.putExtra("title", item.getTitle());
                 intent.putExtra("content", item.getContent());
+                intent.putExtra("excerpt", item.getExcerpt());
                 intent.putExtra("author", item.getAuthor());
                 intent.putExtra("thumbnail", item.getThumbnail());
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
